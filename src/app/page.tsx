@@ -1,13 +1,31 @@
 "use client"
 import { useEffect, useState } from "react";
+
+// Define the interface for the data structure
+interface TokenData {
+  id: string;
+  name: string;
+  symbol: string;
+  price: number;
+  buyCount: number;
+  sellCount: number;
+  marketCap: number;
+  totalHolders: number;
+  creatorEquity: number;
+  audit: string;
+}
+
 export default function Home() {
-  const [jsonData, setJsonData] = useState([]);
+  // Define jsonData state with the TokenData type
+  const [jsonData, setJsonData] = useState<TokenData[]>([]);
+
   useEffect(() => {
     fetch("/data.json")
       .then((response) => response.json())
       .then((data) => setJsonData(data))
       .catch((error) => console.error("Error loading JSON data:", error));
   }, []);
+
   return (
     <div className="container mx-auto px-4 py-8">
       <h1 className="text-2xl font-bold mb-4">Token Data Table</h1>
